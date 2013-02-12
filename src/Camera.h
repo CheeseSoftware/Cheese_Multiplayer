@@ -6,10 +6,12 @@ class Camera : public sf::View
 {
 private:
 	Creature *currentCreature;
+	double speed;
 public:
-	Camera(void);
+	Camera(double speed);
 	~Camera(void);
-	void Update();
+	void Update(sf::RenderWindow &app);
 	void setCameraAt(Creature &creature);
+	void setSpeed(double speed);
 };
 

@@ -25,6 +25,6 @@ public:
 	std::vector<Creature*> creatureList;
 	std::vector<Player*> playerList;
 	TextureContainer tc;
-	Camera camera;
+	Camera *camera;
 };
 

@@ -11,7 +11,7 @@ int main()
 
 	GameState *gameState = new PlayState(&app);
 
-	//app.SetFramerateLimit(60);
+	//app.SetFramerateLimit(6);
 
 	while (app.IsOpened())
     {

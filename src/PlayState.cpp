@@ -3,12 +3,15 @@
 #include "PlayState.h"
 using namespace sf;
 
+
+
 PlayState::PlayState(sf::RenderWindow *window)
 {
+	camera = new Camera(10);
 	currentWorld = new World(8, 8);
 
-	window->SetView(camera);
-	camera.SetHalfSize(sf::Vector2f(768/2, 512/2)); 
+	window->SetView(*camera);
+	camera->SetHalfSize(sf::Vector2f(768/2, 512/2)); 
 
 	player = new Player(0, 0, true, "graywizard.png", 0, "Karl-Bertil");
 }
@@ -25,7 +28,7 @@ void PlayState::EventUpdate(sf::Event &event)
 
 GameState *PlayState::Update(sf::RenderWindow &app)
 {
-	player->Update(app, camera);
+	player->Update(app, *camera);
 
 	if(app.GetInput().IsMouseButtonDown(sf::Mouse::Left))
 	{
@@ -36,7 +39,7 @@ GameState *PlayState::Update(sf::RenderWindow &app)
 		currentWorld->setBlock(player->getX() + app.GetInput().GetMouseX()-(8*16), player->getY() + app.GetInput().GetMouseY(), &(BlockSolid(0)));	
 	}
 	//std::cout << "Chunk x: " << (int)((player->getX()/16)/16) << " y: " << (int)((player->getY()/16)/16) << std::endl;
-	camera.Update();
+	camera->Update(app);
 	return this;
 }
 

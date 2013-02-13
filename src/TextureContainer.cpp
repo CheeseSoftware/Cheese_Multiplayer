@@ -36,14 +36,14 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 	bool success = image.LoadFromFile(fileName);
 
 	int width = image.GetWidth()/spriteWidth;
-	int height = (image.GetHeight()/spriteHeight);
+	int height = image.GetHeight()/spriteHeight;
 
 	sf::Sprite *sprite = new sf::Sprite[width*height];
 	sf::Image *tempImage;
 
 	for (int x = 0; x+1 <= width; x++)
 	{
-		for (int y = 0; y+1 <= height; y ++)
+		for (int y = 0; y+1 <= height; y++)
 		{
 			tempImage = new sf::Image(spriteWidth, spriteHeight);
 			tempImage->Copy(image, 0, 0, sf::IntRect(x*spriteWidth, y*spriteHeight, spriteWidth, spriteHeight), false);
@@ -52,13 +52,13 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 		}
 	}
 	//textureList[textureType]->push_back(sprite);
-	textureList.emplace(std::pair<std::string, sf::Sprite*>(fileName, sprite));
+	textureList.emplace(fileName, sprite);
 	std::cout << "Added texturesheet " << fileName << std::endl;
 	return success;
 }
 
 sf::Sprite *TextureContainer::getTextures(std::string textureName)
 {
-	std::map<std::string, sf::Sprite*>::iterator it = textureList.find(textureName);
-	return(it->second);
+	auto it = textureList.find(textureName);
+	return (it == textureList.end()) ? NULL : it->second;
 }

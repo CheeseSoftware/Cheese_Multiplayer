@@ -4,6 +4,8 @@
 
 World::World(short unsigned sizeX, short unsigned sizeY)
 {
+
+
 	this->sizeX = sizeX+1;
 	this->sizeY = sizeY+1;
 
@@ -22,13 +24,13 @@ World::World(short unsigned sizeX, short unsigned sizeY)
 
 	for(int xx = 0; xx < this->sizeX * 16; xx++)
 	{
-		this->setBlock(256 + xx * 16, 256, new BlockSolid(2));
-		this->setBlock(256 + xx * 16, 256 + sizeY * 16 * 16 - 16, new BlockSolid(2));
+		this->setBlock(256 + xx * 16, 256, new BlockSolid(4));
+		this->setBlock(256 + xx * 16, 256 + sizeY * 16 * 16 - 16, new BlockSolid(4));
 	}
 	for(int yy = 0; yy < this->sizeY * 16; yy++)
 	{
-		this->setBlock(256, 256 + yy * 16, new BlockSolid(2));
-		this->setBlock( 256 + sizeX * 16 * 16 - 16, 256 + yy * 16, new BlockSolid(2));
+		this->setBlock(256, 256 + yy * 16, new BlockSolid(4));
+		this->setBlock( 256 + sizeX * 16 * 16 - 16, 256 + yy * 16, new BlockSolid(4));
 	}
 }
 
@@ -86,3 +88,19 @@ Block* World::getBlock(short x, short y)
 		return(0);
 	}
 }
+
+void World::AddBlockType(unsigned short key, std::function<Block*(unsigned short)> value)
+{
+	blockTypeMap.emplace(key, value);
+}
+
+std::function<Block*(unsigned short)>* World::getBlockType(unsigned short id)
+{
+	auto it = blockTypeMap.find(id);
+	return (it == blockTypeMap.end()) ? NULL : &it->second;
+}
+
+/*std::map<unsigned short, std::function<Block*>>* World::getBlockTypeMap()
+{
+	return &blockTypeMap;
+}*/

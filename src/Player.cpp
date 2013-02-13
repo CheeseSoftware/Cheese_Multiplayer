@@ -82,7 +82,7 @@ void Player::KeyUpdate(bool Right, bool Down, bool Left, bool Up)
 
 std::string Player::getTextureName()
 {
-	return "BlockSolid.png";
+	return "blocksolid.png";
 }
 
 char Player::getTextureId()

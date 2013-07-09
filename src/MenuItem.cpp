@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "MenuItem.h"
 #include "GameState.h"
+#include "App.h"
 
 
 MenuItem::MenuItem(int x, int y, int width, int height, std::function<void()> &clickEvent)
@@ -19,22 +20,22 @@ MenuItem::~MenuItem()
 
 }
 
-void MenuItem::EventUpdate(sf::Event &event, sf::RenderWindow &app)
+void MenuItem::EventUpdate(sf::Event& event, App& app)
 {
-    if (event.Type == sf::Event::MouseMoved)
+    if (event.type == sf::Event::MouseMoved)
     {
-        selected = (event.MouseMove.X >= x && event.MouseMove.X <= x+width && event.MouseMove.Y >= y && event.MouseMove.Y <= y+height);
+		selected = (sf::Mouse::getPosition().x >= x && sf::Mouse::getPosition().x <= x+width && sf::Mouse::getPosition().y >= y && sf::Mouse::getPosition().y <= y+height);
     }
-    else if (event.Type == sf::Event::MouseButtonPressed)
+    else if (event.type == sf::Event::MouseButtonPressed)
     {
-        if (event.MouseButton.Button != sf::Mouse::Left && selected)
+		if (event.key.code != sf::Mouse::Left && selected)
         {
             down = true;
         }
     }
-    else if (event.Type == sf::Event::MouseButtonReleased)
+    else if (event.type == sf::Event::MouseButtonReleased)
     {
-        if (event.MouseButton.Button != sf::Mouse::Left)
+		if (event.key.code != sf::Mouse::Left)
         {
 			clicked |= down;
 			down = false;
@@ -42,7 +43,7 @@ void MenuItem::EventUpdate(sf::Event &event, sf::RenderWindow &app)
     }
 }
 
-GameState *MenuItem::Update(sf::RenderWindow &app)
+GameState *MenuItem::Update(App& app)
 {
 	if (clicked && selected && clickEvent != 0)
 			clickEvent();

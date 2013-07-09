@@ -1,3 +1,5 @@
+#ifndef _SERVER
+
 #include <iostream>
 #include <vector>
 #include "MainMenu.h"
@@ -21,21 +23,20 @@ MainMenu::~MainMenu()// : MenuState()//void MainMenu::Shutdown()
 	MenuState::~MenuState();
 }
 
-void MainMenu::EventUpdate(sf::Event &event)
+void MainMenu::EventUpdate(App& app, sf::Event& event)
 {
-    MenuState::EventUpdate(event);
+    MenuState::EventUpdate(app, event);
 }
 
-GameState *MainMenu::Update(sf::RenderWindow &app)
+GameState *MainMenu::Update(App& app)
 {
     MenuState::Update(app);
     return this;
 }
 
-void MainMenu::Draw(sf::RenderWindow &app)
+void MainMenu::Draw(App& app)
 {
     MenuState::Draw(app);
     //menuItems.
 }
-
-
+#endif

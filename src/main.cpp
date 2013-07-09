@@ -1,46 +1,76 @@
+#include "App.h"
+
+#ifndef _SERVER
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "GameState.h"
-#include "Menu.h"
 #include "PlayState.h"
-using namespace sf;
+#else
+#include "ServerState.h"
 
-int main()
+#endif
+
+int _argc;
+char** _argv;
+//using namespace sf;
+
+/*#ifdef _SERVER
+#define _APP *reinterpret_cast<tgui::Window*>(&app)//static_cast<tgui::Window>(app)
+#else
+#define _APP app
+#endif*/
+
+int main(int argc, char** argv)
 {
-    sf::RenderWindow app(sf::VideoMode(768, 512), "Cheese Multiplayer - Alpha");
+	_argc = argc;
+	_argv = argv;
 
-	GameState *gameState = new PlayState(&app);
+#ifndef _SERVER
+
+	App app(sf::VideoMode(1152,720));
+
+	GameState *gameState = new PlayState((const PlayState&)app);
+#else
+	App app;
+	GameState *gameState = new ServerState(app);
+#endif
+
+	GameState *oldState;
 
 	//app.SetFramerateLimit(6);
+#ifndef _SERVER
+	while (app.isOpen())
+	{
+		sf::Event event;
+		if (app.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				app.close();
+			gameState->EventUpdate(app, event);
+			// Pass the event to all the objects (if there would be objects)
+            app.handleEvent(event);
+		}
+#else
+	while (true)
+	{
+#endif
 
-	while (app.IsOpened())
-    {
-        sf::Event event;
-       if (app.GetEvent(event))
-        {
-            if (event.Type == sf::Event::Closed)
-                app.Close();
+		oldState = gameState;
+		if((gameState=gameState->Update(app)) != oldState)
+		{
+			delete oldState;
+		}
 
-            gameState->EventUpdate(event);
-        }
+#ifndef _SERVER
+		app.clear();
 
-        GameState *oldState = gameState;
-        if((gameState=gameState->Update(app)) != oldState)
-        {
-            delete oldState;
-        }
+		gameState->Draw(app);
 
-        app.Clear();
+		app.Update();
+		app.display();
+#else
+		app.Update();
+#endif
+	}
 
-        gameState->Draw(app);
-
-        app.Display();
-    }
-
-    return EXIT_SUCCESS;
-}
-
-void Update()
-{
-
+	return 0;
 }

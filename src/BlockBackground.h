@@ -1,10 +1,10 @@
 #pragma once
 #include "Block.h"
 
-class BlockSolid : public Block
+class BlockBackground : public Block
 {
 public:
-	BlockSolid(unsigned short id);
+	BlockBackground(unsigned short id);
 	virtual unsigned short getId();
 	virtual unsigned char getTextureId(App &app, unsigned short metadata);
 	virtual unsigned char getLayer();

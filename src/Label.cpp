@@ -15,18 +15,18 @@ Label::~Label()
 
 }
 
-void Label::EventUpdate(sf::Event &event, sf::RenderWindow &app)
+void Label::EventUpdate(sf::Event& event, App& app)
 {
 	MenuItem::EventUpdate(event, app);
 }
 
-GameState *Label::Update(sf::RenderWindow &app)
+GameState *Label::Update(App& app)
 {
 	MenuItem::Update(app);
 	return 0;
 }
 
-void Label::Draw(sf::RenderWindow &app)
+void Label::Draw(App& app)
 {
 
 }

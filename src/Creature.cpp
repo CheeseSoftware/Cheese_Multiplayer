@@ -1,65 +1,29 @@
 #include "Creature.h"
-#include <SFML/Graphics.hpp>
-#include <math.h>
-#include <iostream>
-#include "Camera.h"
 
-#define PI 3.14159265358979323846264338
+#define PI 3.141592653589793238462643383279502884197169399375105820974944
 
-Creature::Creature(float x, float y, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling)
-    {
-        this->x = x;
-        this->y = y;
-        this->speed = speed;
-        this->friction = friction;
-        this->isClientControlling = isClientControlling;
-
-        xSpeed = 0;
-        ySpeed = 0;
-        horizontal = 0;
-        vertical = 0;
-        angle = 0;
-		this->spriteName = spriteName;
-		this->spriteIndex = spriteIndex;
-    }
-
-void Creature::Update(sf::RenderWindow &app, sf::View &camera)
+Creature::Creature(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling) 
+	: Entity(x,y,sizeX,sizeY,0,speed,friction,spriteName,spriteIndex,isClientControlling)
 {
-    xSpeed += horizontal * app.GetFrameTime();
-    ySpeed += vertical * app.GetFrameTime();
-
-    xSpeed *= 1 - tan(friction*PI/2) * app.GetFrameTime();
-    ySpeed *= 1 - tan(friction*PI/2) * app.GetFrameTime();
-
-    move(xSpeed * app.GetFrameTime(), ySpeed * app.GetFrameTime());
+	horizontal = 0;
+    vertical = 0;
 }
 
-void Creature::Draw(sf::RenderWindow &app, TextureContainer &tc)
+void Creature::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList)
 {
-	sf::Sprite *sprite = &(tc.getTextures(spriteName)[spriteIndex]);
-	if (sprite != NULL)
-	{
-		sprite->SetPosition(sf::Vector2f(x, y));
-		sprite->SetRotation(angle);
-		app.Draw(*sprite);
-	}
-	else
-	{
-		std::cout << "'" << getTextureName() << "' not found!" << std::endl;
-	}
+    speedX += horizontal * app.getFrameTime();
+    speedY += vertical * app.getFrameTime();
+
+	Entity::Update(app, world, packetDataList);
 }
 
-void Creature::move(float X, float Y)
+void Creature::CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical)
 {
-    x += X;
-    y += Y;
+	this->x = x;
+	this->y = y;
+	this->speedX = speedX;
+	this->speedY = speedY;
+	this->angle = angle;
+	this->horizontal = horizontal;
+	this->vertical = vertical;
 }
-void Creature::setPosition(float X, float Y)
-{
-    x = X;
-    y = Y;
-}
-void Creature::setX(float X) { x = X; }
-void Creature::setY(float Y) { y = Y; }
-float Creature::getX() { return x; }
-float Creature::getY() { return y; }

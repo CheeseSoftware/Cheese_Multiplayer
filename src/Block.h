@@ -1,20 +1,29 @@
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include "TextureContainer.h"
+#include <functional>
+#include "App.h" //#include <SFML/Graphics.hpp>
+
+class TextureContainer;
+class World;
 
 class Block
 {
+private:
+	unsigned short id;
 public:
-	Block(void);
-	unsigned char metadata;
-	unsigned char getMetadata();
-    virtual short int getId()=0;
-	virtual char getTextureId()=0;
+	Block(unsigned short id);
+
+	unsigned short getId();
+
+	virtual std::function<Block*(unsigned short)> RegisterBlock(const unsigned short id);
+	virtual unsigned char getTextureId(App &app, unsigned short metadata)=0;
+	virtual unsigned char getLayer()=0;
 	virtual std::string getTextureName()=0;
 	virtual bool isSeeThrough()=0;
+	virtual bool isSolid()=0;
+	virtual bool isSimple();
 	//virtual char getSubTextureId() = 0;
-	void setMetadata(unsigned char);
-	void Draw(short posX, short posY, short chunkPosX, short chunkPosY, sf::RenderWindow &app, TextureContainer &tc);
+#ifndef _SERVER
+	void Draw(long posX, long posY, App& app, TextureContainer &tc, unsigned short metadata);
+#endif
 };
-

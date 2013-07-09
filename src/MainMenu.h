@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MAINMENU_H_INCLUDED
 #define MAINMENU_H_INCLUDED
 
@@ -16,9 +18,9 @@ public:
 	MainMenu();
     ~MainMenu();
     //virtual void Initialize();
-    virtual void EventUpdate(sf::Event &event);
-    virtual GameState *Update(sf::RenderWindow &app);
-    virtual void Draw(sf::RenderWindow &app);
+    virtual void EventUpdate(App& app, sf::Event& event);
+    virtual GameState *Update(App& app);
+    virtual void Draw(App& app);
     //virtual void Shutdown();
 };
 

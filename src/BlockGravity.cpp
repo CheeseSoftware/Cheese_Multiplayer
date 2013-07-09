@@ -1,7 +1,7 @@
 #include "BlockGravity.h"
 
 
-BlockGravity::BlockGravity(short int texture)
+BlockGravity::BlockGravity(unsigned short id) : Block(id)
 {
 
 }

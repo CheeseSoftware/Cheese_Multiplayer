@@ -1,3 +1,5 @@
+#ifndef _SERVER
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "MenuState.h"
@@ -17,20 +19,21 @@ MenuState::~MenuState()//void MenuState::Shutdown()
     }
 }
 
-void MenuState::EventUpdate(sf::Event &event)
+void MenuState::EventUpdate(App& app, sf::Event& event)
 {
 
 }
 
-GameState *MenuState::Update(sf::RenderWindow &app)
+GameState *MenuState::Update(App& app)
 {
     return this;
 }
 
-void MenuState::Draw(sf::RenderWindow &app)
+void MenuState::Draw(App& app)
 {
     for (unsigned int i = 0; i < menuItems.size(); i++)
     {
         menuItems[i]->Draw(app);
     }
 }
+#endif

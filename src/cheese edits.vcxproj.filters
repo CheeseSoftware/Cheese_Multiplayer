@@ -13,17 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Source Files\Creature">
-      <UniqueIdentifier>{748b2a5a-0f02-47e5-9237-87ea3791f2f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameState">
       <UniqueIdentifier>{8d961622-9744-4b8d-88e2-2e15c5b8f18c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\MenuItem">
       <UniqueIdentifier>{d67e6eff-4c36-46d4-9172-79e4f64a853b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Creature">
-      <UniqueIdentifier>{cf4be33f-685d-48c9-b81c-875471f6a527}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\GameState">
       <UniqueIdentifier>{8e08149d-26ad-409e-a997-116c3f9b76cb}</UniqueIdentifier>
@@ -42,6 +36,24 @@
     </Filter>
     <Filter Include="Source Files\World">
       <UniqueIdentifier>{10ea5740-1900-4a13-b9da-cde340a2c968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{1361f09e-420e-4f77-b7f5-82d8b12d87e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity\Creature">
+      <UniqueIdentifier>{748b2a5a-0f02-47e5-9237-87ea3791f2f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity">
+      <UniqueIdentifier>{7326553e-efb4-40d5-8947-f98747ae5248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity\Creature">
+      <UniqueIdentifier>{cf4be33f-685d-48c9-b81c-875471f6a527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{d719da3f-3b61-4d48-aeec-94434b40724b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{aedd41a3-ab91-47c0-9c27-66f317cdddcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,13 +79,13 @@
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
-      <Filter>Source Files\Creature</Filter>
+      <Filter>Source Files\Entity\Creature</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Creature</Filter>
+      <Filter>Source Files\Entity\Creature</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Source Files\Creature</Filter>
+      <Filter>Source Files\Entity\Creature</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Source Files\Block</Filter>
@@ -96,6 +108,30 @@
     <ClCompile Include="BlockGravity.cpp">
       <Filter>Source Files\Block</Filter>
     </ClCompile>
+    <ClCompile Include="BlockBackground.cpp">
+      <Filter>Source Files\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameUI.cpp">
+      <Filter>Source Files\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerState.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerConnection.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuItem.h">
@@ -105,7 +141,7 @@
       <Filter>Header Files\MenuItem</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Header Files\Creature</Filter>
+      <Filter>Header Files\Entity\Creature</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>Header Files\GameState</Filter>
@@ -123,10 +159,10 @@
       <Filter>Header Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Creature.h">
-      <Filter>Header Files\Creature</Filter>
+      <Filter>Header Files\Entity\Creature</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\Creature</Filter>
+      <Filter>Header Files\Entity\Creature</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>Header Files\Block</Filter>
@@ -148,6 +184,36 @@
     </ClInclude>
     <ClInclude Include="BlockGravity.h">
       <Filter>Header Files\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockBackground.h">
+      <Filter>Header Files\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameUI.h">
+      <Filter>Header Files\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerState.h">
+      <Filter>Header Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerConnection.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageType.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,12 @@
-#include "Camera.h"
+#ifndef _SERVER
+#include "camera.h"
 
 Camera::Camera(double speed)
 {
-	this->speed = speed;
-	currentCreature = NULL;
+	speed = speed;
+	currentEntity = nullptr;
+
+	setSize(1152,720);// temporära magiska nummer
 }
 
 
@@ -12,23 +15,38 @@ Camera::~Camera(void)
 
 }
 
-void Camera::Update(sf::RenderWindow &app)
+void Camera::Update(App& app)
 {
-	if (currentCreature != NULL)
-		this->SetCenter(
-		(currentCreature->getX()+8)*speed*app.GetFrameTime()+
-		this->GetCenter().x*(1-speed*app.GetFrameTime()),
-		(currentCreature->getY()+8)*speed*app.GetFrameTime()+
-		this->GetCenter().y*(1-speed*app.GetFrameTime()));
+	if (currentEntity != nullptr)
+	{
+		float deltaX = currentEntity->getX()+8-getCenter().x;
+		float deltaY = currentEntity->getY()+8-getCenter().y;
+		float speedFactor = atan(app.getFrameTime()*speed)*2/3.14159265358979323846264338327950288419;
+
+		setCenter(getCenter().x + deltaX*speedFactor, getCenter().y + deltaY*speedFactor);
+
+		rotate(13);
+	}
 }
 
-void Camera::setCameraAt(Creature &creature)
+void Camera::setCameraAt(Entity &entity)
 {
-	if (currentCreature != &creature)
-		currentCreature = &creature;
+	if (currentEntity != &entity)
+		currentEntity = &entity;
 }
 
 void Camera::setSpeed(double speed)
 {
 	this->speed = speed;
 }
+
+sf::Vector2f Camera::getEntityPosition()
+{
+	if(currentEntity != nullptr)
+		return(currentEntity->getPosition());
+	else
+		return(sf::Vector2f(0, 0));
+}
+
+Entity &Camera::getEntity() { return *currentEntity; }
+#endif

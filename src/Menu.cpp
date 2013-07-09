@@ -1,3 +1,5 @@
+#ifndef _SERVER
+
 #include <SFML/Graphics.hpp>
 #include "Menu.h"
 #include "MainMenu.h"
@@ -15,12 +17,12 @@ Menu::~Menu()//void Menu::Shutdown()
     delete menuState;
 }
 
-void Menu::EventUpdate(sf::Event &event)
+void Menu::EventUpdate(App& app, sf::Event& event)
 {
-    menuState->EventUpdate(event);
+    menuState->EventUpdate(app, event);
 }
 
-GameState *Menu::Update(sf::RenderWindow &app)
+GameState *Menu::Update(App& app)
 {
 	GameState *newState = menuState->Update(app);
 	if (newState != menuState)
@@ -40,7 +42,9 @@ GameState *Menu::Update(sf::RenderWindow &app)
     return this;
 }
 
-void Menu::Draw(sf::RenderWindow &app)
+void Menu::Draw(App& app)
 {
     menuState->Draw(app);
 }
+
+#endif

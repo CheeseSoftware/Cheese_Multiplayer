@@ -7,12 +7,18 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
+		Server Debug|Win32 = Server Debug|Win32
+		Server Release|Win32 = Server Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Debug|Win32.Build.0 = Debug|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Debug|Win32.ActiveCfg = Release|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Debug|Win32.Build.0 = Release|Win32
 		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Release|Win32.ActiveCfg = Release|Win32
 		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Release|Win32.Build.0 = Release|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Server Debug|Win32.ActiveCfg = Server Debug|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Server Debug|Win32.Build.0 = Server Debug|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Server Release|Win32.ActiveCfg = Server Release|Win32
+		{A1D2AD80-5BD3-4D1C-B29D-FD0C6FF0F150}.Server Release|Win32.Build.0 = Server Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MENUITEM_H_INCLUDED
 #define MENUITEM_H_INCLUDED
 
@@ -19,9 +21,9 @@ protected:
 public:
     MenuItem(int x, int y, int width, int height, std::function<void()> &clickEvent);
 	~MenuItem();
-    virtual void EventUpdate(sf::Event &event, sf::RenderWindow &app);
-    virtual GameState *Update(sf::RenderWindow &app);
-    virtual void Draw(sf::RenderWindow &app)=0;
+    virtual void EventUpdate(sf::Event& event, App& app);
+    virtual GameState *Update(App& app);
+    virtual void Draw(App& app)=0;
 };
 
 #endif // MENUITEM_H_INCLUDED

@@ -132,6 +132,9 @@
     <ClCompile Include="Connection.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuItem.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="MessageType.h">
       <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

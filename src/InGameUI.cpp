@@ -112,13 +112,16 @@ void InGameUI::Draw(App& app, TextureContainer &tc, World &world)
 	sf::Sprite *mainStripSprite = &(tc.getTextures("UIMainStrip.png")[0]);
 	sf::Sprite *buttonBlocksSprite = &(tc.getTextures("UIMainButtonBlocks.png")[0]);
 
-	mainStripSprite->setPosition(bla.x + 0, bla.y + 512 - 24);
-	buttonBlocksSprite->setPosition(bla.x + 1, bla.y + 512 - 21);
+	if (mainStripSprite != 0 && buttonBlocksSprite != 0)
+	{
+		mainStripSprite->setPosition(bla.x + 0, bla.y + 512 - 24);
+		buttonBlocksSprite->setPosition(bla.x + 1, bla.y + 512 - 21);
 
-	app.draw(*mainStripSprite);
-	app.draw(*buttonBlocksSprite);
-	//app.draw(*chatBox);
-	app.drawGUI();
+		app.draw(*mainStripSprite);
+		app.draw(*buttonBlocksSprite);
+		//app.draw(*chatBox);
+		app.drawGUI();
+	}
 
 	for (auto b : world.getBlockTypeMap())//for (std::map<unsigned short, std::function<Block*(unsigned short)>>::iterator b = world.getBlockTypeMap()->begin(); b != world.getBlockTypeMap()->end(); b++)
 	{

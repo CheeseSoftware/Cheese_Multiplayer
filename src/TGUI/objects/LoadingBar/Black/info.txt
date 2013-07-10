@@ -1,0 +1,2 @@
+# Images are provided for both (with SplitImage and without SplitImage)
+SplitImage = true

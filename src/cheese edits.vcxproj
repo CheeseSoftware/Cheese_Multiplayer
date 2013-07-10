@@ -72,16 +72,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\SFML-2.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SFML-2.0\include;D:\TGUI-0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\TGUI-0.5\lib;D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
     <IntDir>$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName) $(Configuration)s</TargetName>
+    <TargetName>$(ProjectName) $(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Server Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\SFML-2.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName) Server</TargetName>
+    <TargetName>$(ProjectName) Server ss</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockBackground.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockBackground.h" />

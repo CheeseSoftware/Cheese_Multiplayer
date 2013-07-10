@@ -28,7 +28,10 @@ bool Block::isSimple()
 void Block::Draw(long posX, long posY, App& app, TextureContainer &tc, unsigned short metadata)
 {
 	sf::Sprite *&&tempSprite = &(tc.getTextures(getTextureName())[getTextureId(app, metadata)]);
-	tempSprite->setPosition(posX, posY);
-	app.draw(*tempSprite);
+	if (tempSprite != nullptr)
+	{
+		tempSprite->setPosition(posX, posY);
+		app.draw(*tempSprite);
+	}
 }
 #endif

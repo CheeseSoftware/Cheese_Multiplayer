@@ -1,0 +1,39 @@
+﻿Build started 2013-07-10 18:03:03.
+     1>Project "C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\cheese edits.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _SERVER /D _CONSOLE /D SFML_STATIC /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Server Release\\" /Fd"Server Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt TextureContainer.cpp
+         TextureContainer.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\Server Release\cheese edits Server ss.exe" /INCREMENTAL /NOLOGO "sfml-graphics-s.lib" "sfml-window-s.lib" "sfml-system-s.lib" "sfml-network-s.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\Server Release\cheese edits Server ss.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\Server Release\cheese edits Server ss.lib" /MACHINE:X86 /SAFESEH "Server Release\BlockRegister.obj"
+         "Server Release\App.obj"
+         "Server Release\Block.obj"
+         "Server Release\BlockBackground.obj"
+         "Server Release\BlockGravity.obj"
+         "Server Release\BlockSolid.obj"
+         "Server Release\Camera.obj"
+         "Server Release\Chunk.obj"
+         "Server Release\Connection.obj"
+         "Server Release\Creature.obj"
+         "Server Release\Entity.obj"
+         "Server Release\InGameUI.obj"
+         "Server Release\Label.obj"
+         "Server Release\main.obj"
+         "Server Release\MainMenu.obj"
+         "Server Release\Menu.obj"
+         "Server Release\MenuItem.obj"
+         "Server Release\MenuState.obj"
+         "Server Release\Monster.obj"
+         "Server Release\Player.obj"
+         "Server Release\PlayState.obj"
+         "Server Release\Projectile.obj"
+         "Server Release\ServerConnection.obj"
+         "Server Release\ServerState.obj"
+         "Server Release\TextureContainer.obj"
+         "Server Release\World.obj"
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+         cheese edits.vcxproj -> C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\Server Release\cheese edits Server ss.exe
+     1>Done Building Project "C:\Users\gayboy\Documents\GitHub\Cheese_Multiplayer\src\cheese edits.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.92

@@ -8,7 +8,7 @@ TextureContainer::TextureContainer(void)
 	AddSpriteSheet("Block0.png", 16, 16);
 	AddSpriteSheet("BlockBackground.png", 16, 16);
 	AddSpriteSheet("BlockSolid.png", 16, 16);
-	AddSpriteSheet("BlockGravity.png", 16, 16);
+	//AddSpriteSheet("BlockGravity.png", 16, 16);
 	AddSpriteSheet("arrow.png", 32, 8);
 
 	AddSpriteSheet("graywizard.png", 16, 26);
@@ -42,19 +42,14 @@ bool TextureContainer::AddSpriteSheet(std::string fileName, int spriteWidth, int
 		{
 			tempImage = new sf::Image();
 			tempImage->create(spriteWidth, spriteHeight);
-			//tempImage->Copy(image, 0, 0, sf::IntRect(x*spriteWidth, y*spriteHeight, (x + 1)*spriteWidth, (y + 1)*spriteHeight), true);
 			tempImage->copy(image, 0, 0, sf::IntRect(x * spriteWidth, y * spriteHeight, (x + 1) * spriteWidth, (y + 1) * spriteHeight), false);
-			//std::cout << tempImage->getSize().x << " " << tempImage->getSize().y << " " << image.getSize().x << " " << image.getSize().y << std::endl;
 			//tempImage->setSmooth(false);
 			sf::Texture *toSet = new sf::Texture();
 			toSet->create(spriteWidth, spriteHeight);
 			toSet->update(*tempImage, 0, 0);
-			//std::cout << ".." << std::endl;
 			sprite[x + (y*width)].setTexture(*toSet);
-			//std::cout << "added " << fileName << " at " << (x + (y*width)) << std::endl;
 		}
 	}
-	//textureList[textureType]->push_back(sprite);
 	textureList.emplace(fileName, sprite);
 	std::cout << "Added texturesheet " << fileName << std::endl;
 	return success;

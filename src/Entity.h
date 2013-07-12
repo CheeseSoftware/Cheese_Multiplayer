@@ -19,6 +19,7 @@ enum MessageType;
 class TextureContainer;
 class World;
 class Camera;
+class EventHandler;
 
 class Entity
 {
@@ -38,8 +39,16 @@ protected:
 	void FixateY();
 public:
     bool isClientControlling;
-	Entity(float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
-	virtual void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList);
+
+	Entity(float x, float y, short sizeX, short sizeY,
+		float angle, float speed, float friction, std::string spriteName,
+		int spriteIndex, bool isClientControlling);
+#ifdef _SERVER
+	virtual void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera);
+#else
+	virtual void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList,Camera* camera, EventHandler& EventHandler);
+#endif
+	
 #ifndef _SERVER
 	virtual void EventUpdate(App& app, sf::Event& event, World* world, std::queue<sf::Packet>* packetDataList);
     virtual void Draw(App& app, TextureContainer &tc);

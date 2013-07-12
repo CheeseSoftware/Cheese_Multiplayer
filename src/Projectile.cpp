@@ -1,9 +1,9 @@
-#include "Projectile.h"
+#include "BlockSolid.h"
 #include "Entity.h"
+#include "Projectile.h"
+#include "World.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "World.h"
-#include "BlockSolid.h"
 
 Projectile::Projectile(float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling) 
 	: Entity(x,y,sizeX,sizeY,angle,speed,friction,spriteName,spriteIndex,isClientControlling)
@@ -17,14 +17,22 @@ Projectile::~Projectile(void)
 {
 }
 
-void Projectile::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList)
+#ifdef _SERVER
+void Projectile::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera)
+#else
+void Projectile::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera, EventHandler& eventHandler)
+#endif
 { 
 	speed = sqrt(pow(abs(speedX),2)+pow(abs(speedY),2));
 	friction = 100/speed;
 	if (friction > 1)
 		friction = 1;
 
-	Entity::Update(app, world, packetDataList);
+#ifdef _SERVER
+	Entity::Update(app, world, packetDataList, camera);
+#else
+	Entity::Update(app, world, packetDataList, camera, eventHandler);
+#endif
 }
 
 void Projectile::Collision(World* world)

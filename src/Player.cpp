@@ -6,8 +6,13 @@
 #include "MessageType.h"
 #include "App.h"
 
+#ifdef _SERVER
 Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name) 
 	: Creature(X, Y, sizeX, sizeY, 4096, 0.875, spriteName, spriteIndex, IsClientControlling)
+#else
+Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControlling, std::string spriteName, int spriteIndex, std::string Name, EventHandler& eventHandler) 
+	: Creature(X, Y, sizeX, sizeY, 4096, 0.875, spriteName, spriteIndex, IsClientControlling)
+#endif
 {
 	name = Name;
 	cameraDelay = 0;
@@ -18,21 +23,20 @@ Player::Player(float X, float Y, short sizeX, short sizeY, bool IsClientControll
 	lmb = false;
 }
 
-void Player::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList)
+#ifdef _SERVER
+void Player::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera)
+#else
+void Player::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera, EventHandler& eventHandler)
+#endif
 {
 #ifndef _SERVER
 	if (isClientControlling)
 	{
-		sf::Event event;
-		app.pollEvent(event);
-
-
-
-		if (&GetCamera(app).getEntity() != this)
+		if (camera->getEntity() != this)
 		{
 			if (cameraDelay <= 0)
 			{
-				GetCamera(app).setCameraAt(*this);
+				camera->setCameraAt(this);
 				cameraDelay = 0.5;
 			}
 			else
@@ -43,7 +47,11 @@ void Player::Update(App& app, World* world, std::queue<sf::Packet>* packetDataLi
 	}
 #endif
 
-	Creature::Update(app, world, packetDataList);
+#ifdef _SERVER
+	Creature::Update(app, world, packetDataList, camera);
+#else
+	Creature::Update(app, world, packetDataList, camera, eventHandler);
+#endif
 }
 
 #ifndef _SERVER
@@ -52,7 +60,12 @@ void Player::EventUpdate(App& app, sf::Event& event, World* world, std::queue<sf
 {
 	if (isClientControlling)
 	{
-		bool rDown = false, dDown = false, lDown = false, uDown = false;
+		bool
+			rDown = right,
+			dDown = down,
+			lDown = left,
+			uDown = up;
+
 		switch(event.type)
 		{
 		case sf::Event::KeyPressed:
@@ -89,14 +102,48 @@ Up:
 			}
 			break;
 
+		case sf::Event::KeyReleased:
+			switch(event.key.code)
+			{
+			case sf::Keyboard::D:
+RightR:
+				rDown = false;
+				break;
+			case sf::Keyboard::S:
+DownR:
+				dDown = false;
+				break;
+			case sf::Keyboard::A:
+LeftR:
+				lDown = false;
+				break;
+			case sf::Keyboard::W:
+UpR:
+				uDown = false;
+				break;
+
+			case sf::Keyboard::Right:
+				goto RightR;
+
+			case sf::Keyboard::Down:
+				goto DownR;
+
+			case sf::Keyboard::Left:
+				goto LeftR;
+
+			case sf::Keyboard::Up:
+				goto UpR;
+			}
+			break;
+
 		case sf::Event::MouseButtonPressed:
 			switch(event.key.code)
 			{
 			case sf::Mouse::Left:
 				if(!lmb && (lmb=true))
 				{
-					//double angle = atan2((GetCamera(app).GetCenter().y + app.GetInput().GetMouseY() - 256) - (GetCamera(app).getEntityPosition().y+8), (GetCamera(app).GetCenter().x + app.GetInput().GetMouseX() - 384) - (GetCamera(app).getEntityPosition().x+8)) * 180 / 3.1415;
-					double angle = atan2((GetCamera(app).getCenter().y + sf::Mouse::getPosition().y - 256) - (y+8), (GetCamera(app).getCenter().x + sf::Mouse::getPosition().x - 384) - (x+8)) * 180 / 3.1415;
+					//double angle = atan2((app.getView().GetCenter().y + app.GetInput().GetMouseY() - 256) - (app.getView().getEntityPosition().y+8), (app.getView().GetCenter().x + app.GetInput().GetMouseX() - 384) - (app.getView().getEntityPosition().x+8)) * 180 / 3.1415;
+					double angle = atan2((app.getView().getCenter().y + sf::Mouse::getPosition().y - 256) - (y+8), (app.getView().getCenter().x + sf::Mouse::getPosition().x - 384) - (x+8)) * 180 / 3.1415;
 					if (angle < 0)
 						angle = angle + 360;
 
@@ -110,11 +157,11 @@ Up:
 						deltaSpeedY *= -1;
 
 
-					//Projectile *projectile = new Projectile(GetCamera(app).getEntityPosition().x.getEntityPosition().y, 32, 32, -angle, 512, 0, "arrow.png", 0, false);
+					//Projectile *projectile = new Projectile(app.getView().getEntityPosition().x.getEntityPosition().y, 32, 32, -angle, 512, 0, "arrow.png", 0, false);
 					Projectile *projectile = new Projectile(x+8, y+8, 32, 32, -angle, 2048, 0.03125, "arrow.png", 0, false);
-					world->AddEntity(projectile);//new Projectile(sf::Vector2f(GetCamera(app).getCreaturePosition().x+8.getCreaturePosition().y+8), (float)angle, 500, tc.getTextures("arroaaawb.png")[0]));
+					world->AddEntity(projectile);//new Projectile(sf::Vector2f(app.getView().getCreaturePosition().x+8.getCreaturePosition().y+8), (float)angle, 500, tc.getTextures("arroaaawb.png")[0]));
 					cameraDelay = 0.03125F;
-					//GetCamera(app).setCameraAt(*projectile);
+					//app.getView().setCameraAt(*projectile);
 				}
 
 				lmb = true;

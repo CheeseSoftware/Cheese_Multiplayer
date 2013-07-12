@@ -7,7 +7,9 @@
 #include "BlockBackground.h"
 #include "Player.h"
 #include "MessageType.h"
+#include "EventHandler.h"
 #include <deque>
+
 
 #define getChunkMatrixIndexX(x) (int)abs(x>>4 + chunkMatrix.second)
 #define getChunkColumnIndexY(y,x_it) (int)abs(y>>4 + x_it.second)
@@ -22,10 +24,10 @@ World::World()
 	RegisterBlock(i,(new BlockSolid(i))->RegisterBlock(i));i++;
 	RegisterBlock(i,(new BlockBackground(i))->RegisterBlock(i));i++;
 
-	for (int x = 0; x < 30; x++)
+	for (int x = 0; x < 3; x++)
 	{ 
 	chunkMatrix.first.push_back(ChunkColumnType(std::deque<Chunk*>(),0));
-	for (int y = 0; y < 30; y++)
+	for (int y = 0; y < 3; y++)
 	{
 	Chunk* chunk = new Chunk();
 	chunk->setBlock(2, 1, 1, new  BlockSolid(1));//(*getBlockType(1))(0));
@@ -76,16 +78,24 @@ void World::Draw(App& app, TextureContainer& tC)
 }
 #endif
 
-std::queue<sf::Packet>* World::Update(App& app, TextureContainer& tC)
+std::queue<sf::Packet>* World::Update(App& app, TextureContainer& tC, Camera* camera)
 {
 	for (Entity* entity : entityList)
 	{
-		entity->Update(app, this, packetDataList);
+#ifdef _SERVER
+		entity->Update(app, this, packetDataList, camera);
+#else
+		entity->Update(app, this, packetDataList, camera, eventHandler);
+#endif
 	}
 
 	for(std::pair<short, Player*> pair : playerList)
 	{
-		pair.second->Update(app, this, packetDataList);
+#ifdef _SERVER
+		pair.second->Update(app, this, packetDataList, camera);
+#else
+		pair.second->Update(app, this, packetDataList, camera, eventHandler);
+#endif
 	}	
 
 	return packetDataList;

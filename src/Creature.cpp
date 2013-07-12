@@ -9,12 +9,20 @@ Creature::Creature(float x, float y, short sizeX, short sizeY, float speed, floa
     vertical = 0;
 }
 
-void Creature::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList)
+#ifdef _SERVER
+void Creature::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera)
+#else
+void Creature::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera, EventHandler& eventHandler)
+#endif
 {
     speedX += horizontal * app.getFrameTime();
     speedY += vertical * app.getFrameTime();
 
-	Entity::Update(app, world, packetDataList);
+#ifdef _SERVER
+	Entity::Update(app, world, packetDataList, camera);
+#else
+	Entity::Update(app, world, packetDataList, camera, eventHandler);
+#endif
 }
 
 void Creature::CreatureMove(float x, float y, float speedX, float speedY, float angle, float horizontal, float vertical)

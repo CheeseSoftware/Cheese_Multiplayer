@@ -68,7 +68,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\SFML-2.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName) Server</TargetName>
+    <TargetName>$(ProjectName) $(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -81,7 +81,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\SFML-2.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\SFML-2.0\lib;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName) Server ss</TargetName>
+    <TargetName>$(ProjectName) $(Configuration)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,17 +152,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockBackground.cpp" />
     <ClCompile Include="BlockGravity.cpp" />
+    <ClCompile Include="BlockRegister.cpp" />
     <ClCompile Include="BlockSolid.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="InGameUI.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
@@ -180,11 +181,11 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Cheese_Multiplayer\src\BlockRegister.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockBackground.h" />
     <ClInclude Include="BlockGravity.h" />
+    <ClInclude Include="BlockRegister.h" />
     <ClInclude Include="BlockSolid.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Chunk.h" />
@@ -192,9 +193,12 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityRegister.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InGameUI.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Listener.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuItem.h" />
@@ -206,6 +210,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="ServerState.h" />
+    <ClInclude Include="SoundContainer.h" />
     <ClInclude Include="TextureContainer.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

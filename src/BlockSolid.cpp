@@ -10,7 +10,7 @@ std::string BlockSolid::getTextureName()
 	return "BlockSolid.png";
 }
 
-unsigned char BlockSolid::getTextureId(App &app, unsigned short metadata)
+unsigned short BlockSolid::getTextureId(App &app, unsigned short metadata)
 {
 	return metadata;
 }

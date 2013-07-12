@@ -8,12 +8,15 @@
 #include <queue>
 #include "App.h"
 #include <SFML\Network.hpp>
+#include "EventHandler.h"
 
 class Entity;
 class Player;
 class Block;
 class Chunk;
 class TextureContainer;
+class Camera;
+class EventHandler;
 
 enum MessageType;
 
@@ -41,13 +44,16 @@ private:
 	std::map<short, Player*> playerList;
 	std::map<std::pair<short,short>,Block*> BlockMap;
 	std::queue<sf::Packet>* packetDataList;
+#ifndef _SERVER
+	EventHandler eventHandler;
+#endif
 public:
 	World();
 #ifndef _SERVER
 	void EventUpdate(App& app, sf::Event& event);
 	void Draw(App& app, TextureContainer& tC);
 #endif
-	std::queue<sf::Packet>* Update(App& app, TextureContainer& tC);
+	std::queue<sf::Packet>* Update(App& app, TextureContainer& tC, Camera* camera);
 	void RegisterBlock(unsigned short key, std::function<Block*(unsigned short)> value);
 	void setBlock(long x, long y, long layer, unsigned short id);
 	void setBlockAndMetadata(long x, long y, long layer, unsigned short id, unsigned short metadata);

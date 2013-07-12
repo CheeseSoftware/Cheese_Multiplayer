@@ -1,12 +1,12 @@
 #ifndef _SERVER
 #include "camera.h"
 
-Camera::Camera(double speed)
+Camera::Camera(double speed) : View(sf::FloatRect(200, 200, 300, 200))
 {
 	speed = speed;
 	currentEntity = nullptr;
 
-	setSize(1152,720);// temporära magiska nummer
+	setSize(1152,700);// temporära magiska nummer
 }
 
 
@@ -23,16 +23,18 @@ void Camera::Update(App& app)
 		float deltaY = currentEntity->getY()+8-getCenter().y;
 		float speedFactor = atan(app.getFrameTime()*speed)*2/3.14159265358979323846264338327950288419;
 
-		setCenter(getCenter().x + deltaX*speedFactor, getCenter().y + deltaY*speedFactor);
+		std::cout << deltaX << " ;( ;( ;( :(\n" << deltaY << ":O\n";
 
-		rotate(13);
+		//setCenter(getCenter().x + deltaX*speedFactor, getCenter().y + deltaY*speedFactor);
+		//move(deltaX*speedFactor,deltaY*speedFactor);
+		move(deltaX, deltaY);
 	}
 }
 
-void Camera::setCameraAt(Entity &entity)
+void Camera::setCameraAt(Entity* entity)
 {
-	if (currentEntity != &entity)
-		currentEntity = &entity;
+	if (currentEntity != entity)
+		currentEntity = entity;
 }
 
 void Camera::setSpeed(double speed)
@@ -48,5 +50,5 @@ sf::Vector2f Camera::getEntityPosition()
 		return(sf::Vector2f(0, 0));
 }
 
-Entity &Camera::getEntity() { return *currentEntity; }
+Entity* Camera::getEntity() { return currentEntity; }
 #endif

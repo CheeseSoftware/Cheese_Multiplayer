@@ -1,11 +1,14 @@
 #include <math.h>
 
+#include "Block.h"
 #include "Entity.h"
+#include "EventHandler.h"
 #include "TextureContainer.h"
 #include "World.h"
-#include "Block.h"
 
-Entity::Entity(float x, float y, short sizeX, short sizeY, float angle, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling)
+Entity::Entity(float x, float y, short sizeX, short sizeY,
+			   float angle, float speed, float friction, std::string spriteName,
+			   int spriteIndex, bool isClientControlling)
 {
 	this->x = x;
 	this->y = y;
@@ -23,7 +26,11 @@ Entity::Entity(float x, float y, short sizeX, short sizeY, float angle, float sp
 	this->spriteIndex = spriteIndex;
 }
 
-void Entity::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList)
+#ifdef _SERVER
+void Entity::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera)
+#else
+void Entity::Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera, EventHandler& EventHandler)
+#endif
 {
 	if (speedX != 0.0F || speedY != 0.0F)
 	{

@@ -5,7 +5,15 @@
 class Monster : public Creature
 {
 public:
-	Monster(float X, float Y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool IsClientControlling);
-    ~Monster(void);
-	void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList);
+	~Monster(void);
+
+#ifdef _SERVER
+	Monster(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
+
+	virtual void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList, Camera* camera);
+#else
+	Monster(float x, float y, short sizeX, short sizeY, float speed, float friction, std::string spriteName, int spriteIndex, bool isClientControlling);
+
+	virtual void Update(App& app, World* world, std::queue<sf::Packet>* packetDataList,Camera* camera, EventHandler& EventHandler);
+#endif
 };

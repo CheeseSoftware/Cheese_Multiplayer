@@ -31,7 +31,7 @@ ServerState::~ServerState()
 GameState *ServerState::Update(App& app)
 {
 	//std::cout << "updates per second: " << 1/APP(app).getFrameTime() << std::endl;
-	std::queue<sf::Packet>* packetDataList = currentWorld->Update(app, tC);
+	std::queue<sf::Packet>* packetDataList = currentWorld->Update(app, tC, nullptr);
 	while (!packetDataList->empty())
 	{
 		sC->Broadcast(packetDataList->front());
@@ -93,7 +93,11 @@ void ServerState::ProcessPackets(void)
 					*packet >> xPos >> yPos;
 
 					//Add the player to the server world
+#ifdef _SERVER
 					currentWorld->AddPlayer(client->ID, new Player(xPos, yPos, 16, 16, true, "graywizard.png", 0, "temp"));
+#else
+					//orkar inte fixaA>.<
+#endif
 
 					// Send the init message
 					// Players

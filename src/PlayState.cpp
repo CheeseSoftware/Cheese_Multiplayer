@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "BlockSolid.h"
 #include "BlockBackground.h"
+#include "EventHandler.h"
 
 namespace sf
 {
@@ -43,8 +44,8 @@ PlayState::PlayState(App& app)
 	blockMenu = new InGameUI(app, tC, *currentWorld);
 	connection = new Connection(5001, ip);
 
-	//app.setView(*camera);
-	camera->setSize(sf::Vector2f(768, 512)); 
+	app.setView(*reinterpret_cast<sf::View*>(camera));
+	//camera->setSize(sf::Vector2f(768, 512)); 
 
 	//Player* player = new Player(128, 128, 16, 16, true, "graywizard.png", 0, "Karl-Bertil");
 	//currentWorld->AddPlayer(2,player); //MÅSTE FIXAS!!!!!!!!!!!!!
@@ -69,11 +70,14 @@ PlayState::~PlayState()
 void PlayState::EventUpdate(App& app, sf::Event& event)
 {
 	currentWorld->EventUpdate(app, event);
+	EventUpdate(app, event);
 }
 
 GameState *PlayState::Update(App& app)
 {
-	std::queue<sf::Packet>* packetDataList = currentWorld->Update(app, tC);
+	std::cout << 1/app.getFrameTime() << "\n";
+
+	std::queue<sf::Packet>* packetDataList = currentWorld->Update(app, tC, camera);
 	while (!packetDataList->empty())
 	{
 		connection->client->socket.send(packetDataList->front());
@@ -82,6 +86,7 @@ GameState *PlayState::Update(App& app)
 	//delete packetDataList;
 
 	camera->Update(app);
+	app.setView(*reinterpret_cast<sf::View*>(camera));
 	
 	blockMenu->Update(app, tC, *currentWorld);
 	connection->Run();
@@ -92,7 +97,7 @@ GameState *PlayState::Update(App& app)
 void PlayState::Draw(App& app)
 {
 	currentWorld->Draw(app, tC);
-	blockMenu->Draw(app, tC, *currentWorld);
+	//blockMenu->Draw(app, tC, *currentWorld);
 }
 
 void PlayState::ProcessPackets(void)
@@ -128,7 +133,7 @@ void PlayState::ProcessPackets(void)
 						//std::cout << "ERROR: Client could not extract data" << std::endl;
 					else
 					{
-						Player* player = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp");
+						Player* player = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp", eventHandler);
 						currentWorld->AddPlayer(ID, player);
 					}
 				}
@@ -180,14 +185,14 @@ void PlayState::ProcessPackets(void)
 				if(type == 0)
 				{
 					*packet >> xPos >> yPos >> clientID;
-					Player* temp = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp");
+					Player* temp = new Player(xPos, yPos, 16, 16, false, "graywizard.png", 0, "temp", eventHandler);
 					std::cout << "Added player -> clientid received " << clientID << " this clientid " << connection->client->ID << std::endl;
 
 					if(clientID == connection->client->ID)
 					{
 						temp->isClientControlling = true;
 						std::cout << "Camera set" << std::endl;
-						camera->setCameraAt(*temp);
+						camera->setCameraAt(temp);
 					}
 
 					currentWorld->AddPlayer(clientID, temp);

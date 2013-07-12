@@ -11,7 +11,7 @@ std::string BlockBackground::getTextureName()
 	return "BlockBackground.png";
 }
 
-unsigned char BlockBackground::getTextureId(App &app, unsigned short metadata)
+unsigned short BlockBackground::getTextureId(App &app, unsigned short metadata)
 {
 	return metadata;
 }

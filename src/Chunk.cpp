@@ -84,7 +84,7 @@ void Chunk::Draw(long xPos, long yPos, App& app, TextureContainer &tc)
 			}
 			for(int l = 5; l >= 0; l--)
 			{
-				if(blockList[x][y][l].first != nullptr && xPosBlock + 16 >= (GetCamera(app).getCenter().x - 381) && xPosBlock <= (GetCamera(app).getCenter().x + 381)&& yPosBlock + 16 >= (GetCamera(app).getCenter().y - 256) && yPosBlock <= (GetCamera(app).getCenter().y + 256))
+				if(blockList[x][y][l].first != nullptr && xPosBlock + 16 >= (app.getView().getCenter().x - 381) && xPosBlock <= (app.getView().getCenter().x + 381)&& yPosBlock + 16 >= (app.getView().getCenter().y - 256) && yPosBlock <= (app.getView().getCenter().y + 256))
 				{
 					blockList[x][y][l].first->Draw((xPos - 1 << 4) + x << 4, (yPos - 1 << 4) + y << 4, app, tc, blockList[x][y][l].second); 
 					if(!blockList[x][y][l].first->isSeeThrough())

@@ -9,6 +9,7 @@
 class World;
 class InGameUI;
 class Camera;
+class EventHandler;
 
 class PlayState : public GameState
 {
@@ -16,6 +17,7 @@ class PlayState : public GameState
 	Camera *camera;
 	InGameUI *blockMenu;
 	Connection *connection;
+	EventHandler eventHandler;
 	void ProcessPackets();
 public:
 	PlayState(App& app);
